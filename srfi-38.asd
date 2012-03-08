@@ -6,6 +6,8 @@
   :serial t
   :depends-on (:fiveam
                :srfi-23
+               :srfi-61
+               :srfi-5
                :named-readtables)
   :components ((:file "package")
                (:file "util")
