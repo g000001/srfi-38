@@ -39,6 +39,14 @@
     (cl:setf (cl:fdefinition 'exists) #'cl:some)
     ))
 
+(defun list->string (list)
+  (coerce list 'string))
+
+(defsynonymfun char-alphabetic? #'cl:alpha-char-p)
+(defsynonymfun string->number #'cl:parse-integer)
+(defsynonymfun string->symbol #'cl:intern)
+(defsynonymfun char-numeric? #'cl:digit-char-p)
+
 (defun list? (obj)
   (cl:and (cl:listp obj)
           (cl:tailp '() obj)))

@@ -10,7 +10,8 @@
   :components ((:file "package")
                (:file "util")
                (:file "readtable")
-               (:file "srfi-38")))
+               (:file "srfi-38")
+               (:file "test")))
 
 (defmethod perform ((o test-op) (c (eql (find-system :srfi-38))))
   (load-system :srfi-38)
