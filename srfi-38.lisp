@@ -1,6 +1,6 @@
 ;;;; srfi-38.lisp
 
-(cl:in-package :srfi-38.internal)
+(cl:in-package "https://github.com/g000001/srfi-38#internals")
 
 (defun char-whitespace? (c)
   (and (member c '(#\Space #\Newline #\Tab #\Newline #\Return #\Page))
@@ -67,23 +67,23 @@
                   (begin (display "#" outport)
                          (write val outport)
                          (display "#" outport) alist))
-                 (:else
+                 (else
                   (let ((n (+ 1 (cdar alist))))
                     (begin (display "#" outport)
                            (write n outport)
                            (display "=" outport) )
                     (write-interesting (acons obj n alist) obj outport) )))))
-        (:else (write obj outport) alist) ))
+        (else (write obj outport) alist) ))
 
 ;; Scan computes the initial value of the alist, which maps each
 ;; interesting part of the object to #t if it occurs multiple times,
 ;; #f if only once.
 (define-function (scan obj alist)
-  (srfi-61:cond
+  (cond
     ((not (interesting? obj)) alist)
     ((assq obj alist)
-     :=> (lambda (p) (if (cdr p) alist (acons obj 'T alist))))
-    (:else
+     => (lambda (p) (if (cdr p) alist (acons obj 'T alist))))
+    (else
      (let ((alist (acons obj 'NIL alist)))
        (cond ((pair? obj) (scan (car obj) (scan (cdr obj) alist)))
              ((vector? obj)
@@ -91,7 +91,7 @@
                 (do ((i 0 (+ 1 i))
                      (alist alist (scan (vector-ref obj i) alist)) )
                     ((= i len) alist) )))
-             (:else alist) )))))
+             (else alist) )))))
 
 (define-function (write-with-shared-structure obj . optional-port)
   (let ((outport (if (eq? '() optional-port)
@@ -231,13 +231,13 @@
                   (cond ((eof-object? c)
                          (error "EOF inside a # token") )
                         ((char-numeric? c) (read-part-spec port))
-                        (:else (read-number #\# port)) )))))
+                        (else (read-number #\# port)) )))))
             (otherwise
              (cond ((eof-object? c) c)
                    ((char-numeric? c)
                     (read-char* port)
                     (read-number c port) )
-                   (:else (read-identifier port)) )))))
+                   (else (read-identifier port)) )))))
 
 
       (define-function (read-token port)
@@ -282,9 +282,9 @@
                               ((use)
                                ;; To use a part, it must have been
                                ;; declared before this chain started.
-                               (srfi-61:cond
-                                 ((cl:assoc n starting-alist) :=> #'cdr)
-                                 (:else (error "Use of undeclared part " n)) ))
+                               (cond
+                                 ((cl:assoc n starting-alist) => #'cdr)
+                                 (else (error "Use of undeclared part " n)) ))
                               ((decl)
                                (if (cl:assoc n parts-alist :test #'=)
                                    (error "Double declaration of part " n) )
@@ -337,3 +337,4 @@
                                      (vector-set! obj i (unthunk elt))
                                      (fill-in-parts elt) )))))))
         obj ))))
+

@@ -1,14 +1,30 @@
 ;;;; package.lisp
 
-(cl:in-package :cl-user)
+(cl:in-package common-lisp-user)
 
-(defpackage :srfi-38
+
+(defpackage "https://github.com/g000001/srfi-38"
   (:use)
   (:export
-   :write-with-shared-structure
-   :write/ss))
+   read-with-shared-structure
+   read/ss
+   write-with-shared-structure
+   write/ss))
 
-(defpackage :srfi-38.internal
-  (:use :srfi-38 :cl :named-readtables :fiveam)
-  (:shadow :lambda :member :map :assoc :write)
-  (:shadowing-import-from :srfi-23 :error))
+
+(defpackage "https://github.com/g000001/srfi-38#internals"
+  (:use
+   "https://github.com/g000001/srfi-38"
+   "https://github.com/g000001/srfi-61"
+   cl 
+   fiveam)
+  (:shadow lambda member map assoc write)
+  (:shadowing-import-from
+   "https://github.com/g000001/srfi-23" error)
+  (:shadowing-import-from
+   "https://github.com/g000001/srfi-5" let)
+  (:shadowing-import-from
+   "https://github.com/g000001/srfi-61" cond => else))
+
+
+;;; *EOF*

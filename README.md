@@ -1,5 +1,6 @@
-* SRFI 38: External Representation for Data With Shared Structure
-- Copyright (C) Ray Dillinger 2003. All Rights Reserved.
+# SRFI 38 for CL: External Representation for Data With Shared Structure
+
+* Copyright (C) Ray Dillinger 2003. All Rights Reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
